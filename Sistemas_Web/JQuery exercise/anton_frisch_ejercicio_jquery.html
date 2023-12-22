@@ -1,0 +1,113 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>Ejercicio jquery</title>
+<style>
+    body {
+        background-image: url('https://img.freepik.com/free-photo/education-pencil-wood-close-up-background-generative-ai_188544-8011.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("form").hide();
+
+        $("#showForm").click(function(){
+        $("#showForm").hide();
+        $("#poema").hide();
+        $("form").show();
+        });
+
+        $("#cancelar").click(function(){
+            $("form").hide();
+            $("#showForm").show();
+        });
+    
+        $("#enviar").click(function() {
+            var nombreInput = $("#nombre").val();
+            var emailInput = $("#email").val();
+            var telefonoInput = $("#teléfono").val();
+            var contraseñaInput = $("#contraseña").val();
+            if (isValidName(nombreInput) && isValidEmail(emailInput) && isValidPhone(telefonoInput) && isValidPassword(contraseñaInput)) {
+                alert("Entrada válida");
+            } else {
+                alert("Entrada no válida");
+            }
+            });
+
+            function isValidName(input) {
+                let regex = /^[A-Za-zÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñ]+ [A-Za-zÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñ]+$/;
+                return regex.test(input);
+            }
+
+            function isValidEmail(input) {
+                let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\.[a-zA-Z]{2,}$/;
+                return regex.test(input);
+            }
+
+            function isValidPhone(input) {
+                let regex = /^\d+$/;
+                return regex.test(input);
+            }
+            function isValidPassword(input) {
+                let regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+                return regex.test(input);
+            }    
+         }); 
+</script>
+</head>
+<body>
+    <div style="text-align: center;">
+        <div id="poema" style="color: aliceblue;">
+            <h1>
+                Un poema
+            </h1>
+            <p>
+                Mi nombre es Anton, en CEU San Pablo estudio,<br>
+                En Madrid, mi camino académico, siempre lucho.<br>
+                Mis cursos en español, un desafío constante,<br>
+                A pesar de mi español, sigo adelante.<br>
+
+                "Systemas web 1," la clase que enfrento,<br>
+                Con esfuerzo y pasión, mi objetivo es perfecto.<br>
+                Aunque mi español puede ser un obstáculo hoy,<br>
+                La victoria en el aula será mi orgullo, ¡yo lo sé!<br>
+            </p>
+        </div>
+        <div>
+            <button id="showForm">
+                mostrar formulario
+            </button>
+        </div>
+        <form id="form">
+            <div>
+                <label for="nomrbe y apellido">nombre</label>
+                <input type = "text" id="nombre" name="nombre">
+            </div>
+            <div>
+                <label for="email">email</label>
+                <input type="text" id="email" name="email">
+            </div>
+
+            <div>
+                <label for ="teléfono">teléfono</label>
+                <input type="tel" id="teléfono" name="teléfono">
+            </div>
+
+            <div>
+                <label for ="contraseña">contraseña</label>
+                <input type="password" id="contraseña" name="contraseña">
+            </div>
+
+            <div>
+                <button id="cancelar">cancelar</button>
+            </div>
+
+            <div>
+                <button id="enviar">enviar</button>
+            </div>
+        </form>
+    </div>
+</body>

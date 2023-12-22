@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+    style.
+      body { padding-top: 50px; }
+      .center { text-align: center; }
+      .header { margin-bottom: 20px; }
+      .login-button { margin-top: 20px; }
+  body
+    .container
+      .row
+        .col-md-12.center
+          h1.header= title
+          img(src='https://assets3.thrillist.com/v1/image/3145037/792x792/scale;webp=auto;jpeg_quality=60.jpg', alt='Gato Gordo')
+          h2.header Para ver más fotos de gatos gordos, inicie sesión
+          a(href='/login').btn.btn-primary.login-button Iniciar Sesión

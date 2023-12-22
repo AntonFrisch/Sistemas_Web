@@ -1,0 +1,12 @@
+<%- include("header", {}) %>
+<h1><%= title %></h1>
+<form method="post" action="/registro">
+    <label>Username:</label>
+    <input type="text" id="user" name="user"><br>
+    <label>Password:</label>
+    <input type="password" id="registropass1" name="pass">
+    <label>Password:</label>
+    <input type="password" id="registropass2" name="pass">
+    <button type="submit">Submit</button>
+</form>
+<%- include("footer", {}) %></br>

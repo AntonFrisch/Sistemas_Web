@@ -1,0 +1,16 @@
+doctype html
+html
+  head  
+    title Logged In
+  body    
+    h1 Felicidades, ¡ya has iniciado sesión!
+    h1 Aquí otro gato gordo para ti
+    img(src='https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2019/09/1024/512/FatCat1Istock.jpg?ve=1&tl=1', alt='Gato Gordo 2')
+    #chat-container
+    ul#messages
+    form#message-form(action="")
+      input#message-input(type="text" placeholder="Type a message")
+      button(type="submit" name="send") Send
+    
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/chat.js")  

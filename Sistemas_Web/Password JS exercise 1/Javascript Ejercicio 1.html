@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Password Generator</h1>
+        <div>
+            <label for="dictionaryFile">Seleccionar archivo de diccionario:</label>
+            <input type="file" id="dictionaryFile">
+        </div>
+        <div>
+            <p>Número de palabras (1-10):</p>
+            <input type="number" id="numWords" min="1" max="10" value="1">
+        </div>
+        <div>
+            <input type="checkbox" id="capitalizeFirstLetter">
+            <label for="capitalizeFirstLetter">Letras iniciales en mayúscula</label>
+        </div>
+        <div>
+            <input type="checkbox" id="noRepeatWords">
+            <label for="noRepeatWords">No repetir palabras</label>
+        </div>
+        <button id="generateButton">Generar Contraseña</button>
+        <div>
+            <p>Contraseña generada:</p>
+            <p id="generatedPassword"></p>
+        </div>
+        <button id="downloadButton" style="display: none;">Descargar Contraseña</button>
+    </div>
+
+    <script>
+        // Define dictionary for txt file
+        let dictionary = [];
+
+        //load dictionary from selected file
+        document.getElementById('dictionaryFile'){
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    dictionary = e.target.result.split('\n').filter(word => word.trim() !== '');
+                };
+                reader.readAsText(file);
+            }
+        };
+
+        //capitalize the first letter of each word
+        function capitalizeFirstLetter(word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }
+
+        //generate a random password
+        function generatePassword() {
+            const numWords = parseInt(document.getElementById('numWords').value);
+            if (numWords < 1 || numWords > 10) {
+                alert("Número de palabras debe estar entre 1 y 10");
+                return;
+            }
+
+            let password = '';
+            let usedWords = new Set();
+            for (let i = 0; i < numWords; i++) {
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * dictionary.length);
+                } while (usedWords.has(randomIndex) && document.getElementById('noRepeatWords').checked);
+
+                usedWords.add(randomIndex);
+                let word = dictionary[randomIndex];
+                if (document.getElementById('capitalizeFirstLetter').checked) {
+                    word = capitalizeFirstLetter(word);
+                }
+                password += word + ' ';
+            }
+            document.getElementById('generatedPassword').textContent = password.trim();
+            document.getElementById('downloadButton').style.display = 'block';
+        }
+
+        // download the generated password as a text file
+        function downloadPassword() {
+            const password = document.getElementById('generatedPassword').textContent;
+            const blob = new Blob([password], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'generated_password.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Add a click event listener to the "Generar Contraseña" button
+        document.getElementById('generateButton').addEventListener('click', generatePassword);
+
+        // Add a click event listener to the "Descargar Contraseña" button
+        document.getElementById('downloadButton').addEventListener('click', downloadPassword);
+    </script>
+</body>
+</html>
